@@ -163,6 +163,36 @@ Chaque machine sur Internet possède une **adresse IP unique** pour communiquer.
 | 📈 **Capacité** | ~4,3 milliards d'adresses |
 | 📌 **Exemple** | `192.168.1.10` |
 
+#### 🛠️ Commandes pour Afficher les Adresses IPv4
+
+**Extraire toutes les adresses IPv4 actives :**
+```bash
+ip -4 addr show | grep -E "inet " | awk '{print $2}' | cut -d/ -f1
+```
+
+**Explication détaillée de la commande :**
+
+| Partie | Description |
+|--------|-------------|
+| `ip` | 🔧 Outil réseau moderne |
+| `-4` | 📍 Seulement IPv4 (ignore IPv6) |
+| `addr show` | 📋 Montre les adresses de toutes les interfaces |
+| `grep -E "inet "` | 🔍 Filtre les lignes avec adresses IPv4 |
+| `awk '{print $2}'` | ✂️ Prend le deuxième champ (l'adresse avec masque) |
+| `cut -d/ -f1` | 🎯 Enlève le masque (ex: `192.168.1.10/24` → `192.168.1.10`) |
+
+**Alternatives courantes :**
+```bash
+# Méthode simple avec hostname
+hostname -I
+
+# Avec ifconfig (ancienne méthode)
+ifconfig | grep "inet " | awk '{print $2}'
+
+# Afficher uniquement l'IP de l'interface eth0
+ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+```
+
 #### 🆕 IPv6
 
 ```
