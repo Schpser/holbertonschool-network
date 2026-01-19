@@ -21,11 +21,11 @@ L'origine de l'Internet remonte aux recherches sur le **partage de temps** et la
 Les fonctions réseau sont organisées en **couches d'abstraction** pour assurer l'interopérabilité.
 
 ### 📚 Le Modèle OSI (Open Systems Interconnection)
-<img src="home/schpser/holbertonschool-network/Pictures/IOS.png" alt="Modèle OSI" width="300"/>
+<img src="https://github.com/Schpser/holbertonschool-network/blob/main/Pictures/IOS.png" alt="Modèle OSI" width="300"/>
 
 Développé par l'ISO, il comporte **7 couches** :
 
-<img src="home/schpser/holbertonschool-network/Pictures/IOS2.jpg" alt="Modèle OSI" width="300"/>
+<img src="https://github.com/Schpser/holbertonschool-network/blob/main/Pictures/IOS2.png" alt="Modèle OSI" width="300"/>
 
 | Couche | Nom | Fonction | Exemples |
 |--------|-----|----------|----------|
@@ -55,7 +55,7 @@ Développé par l'ISO, il comporte **7 couches** :
 ```
 ┌──────────────────────────────────────────┐
 │   Application (7-5)  →  📄 Données       │
-│   Transport (4)      →  📦 Segment/Datagramme  │
+│   Transport (4)      →  📦 Segment/Datagramme
 │   Réseau (3)         →  📫 Paquet        │
 │   Liaison (2)        →  📨 Trame         │
 │   Physique (1)       →  ⚡ Bits          │
@@ -77,7 +77,7 @@ C'est le **standard pratique d'Internet**, structuré en **4 couches** :
 
 ## 🗺️ 3. Types de Réseaux selon l'Échelle
 
-<img src="home/schpser/holbertonschool-network/Pictures/TYPES.jpg" alt="Modèle OSI" width="300"/>
+<img src="https://github.com/Schpser/holbertonschool-network/blob/main/Pictures/TYPES.jpg" alt="Modèle OSI" width="300"/>
 
 Les réseaux sont classés selon leur **étendue géographique** :
 
@@ -121,7 +121,7 @@ Les réseaux sont classés selon leur **étendue géographique** :
 
 Pour que les données atteignent leur destination, chaque appareil doit être **identifié**.
 
-<img src="home/schpser/holbertonschool-network/Pictures/MAC_IP.jpg" alt="Modèle OSI" width="300"/>
+<img src="https://github.com/Schpser/holbertonschool-network/blob/main/Pictures/MAC_IP.jpg" alt="Modèle OSI" width="300"/>
 
 ### 🔖 Adresse MAC (Adresse Physique)
 
@@ -279,7 +279,7 @@ Réseau : 192.168.1.0/24
 | **Surcharge** | Plus élevée | Minimale |
 | **Emoji** | 🐢 Fiable mais lent | 🐇 Rapide mais risqué |
 
-<img src="home/schpser/holbertonschool-network/Pictures/UCP_TCP.jpg" alt="Modèle OSI" width="300"/>
+<img src="https://github.com/Schpser/holbertonschool-network/blob/main/Pictures/UCP_TCP.jpg" alt="Modèle OSI" width="300"/>
 
 ### 🌐 Protocoles de Service
 
@@ -313,7 +313,7 @@ Réseau : 192.168.1.0/24
 
 ```
 ┌────────────────────────────────────────────┐
-│  👤 Client  ──>  [Switch]  ──>  [Router]  │
+│  👤 Client  ──>  [Switch]  ──>  [Router]   │
 │                    LAN          WAN        │
 │                              ──>  🌍       │
 └────────────────────────────────────────────┘
