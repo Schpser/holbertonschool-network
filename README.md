@@ -8,7 +8,12 @@ Welcome to the **Holberton School Network** project! 🎉 This repository is des
 
 | Task | Description |
 |------|-------------|
-| <a href="https://github.com/Schpser/holbertonschool-network/tree/main/0-OSI_model" target="_blank">`0-OSI_model`</a> | 📚 Understanding the OSI Model layers |
+| [`0-OSI_model`](./basics_0/0-OSI_model) | 📚 Understanding the OSI Model layers |
+| [`1-types_of_network`](./basics_0/1-types_of_network) | 🌐 Different types of networks (LAN, WAN, etc.) |
+| [`2-MAC_and_IP_address`](./basics_0/2-MAC_and_IP_address) | 🔑 MAC and IP addressing concepts |
+| [`3-UDP_and_TCP`](./basics_0/3-UDP_and_TCP) | 🔄 Transport layer protocols comparison |
+| [`4-TCP_and_UDP_ports`](./basics_0/4-TCP_and_UDP_ports) | 🚪 Understanding network ports |
+| [`5-is_the_host_on_the_network`](./basics_0/5-is_the_host_on_the_network) | 🏹 Network connectivity testing script |
 
 ---
 
@@ -241,36 +246,6 @@ sudo iftop -i eth0
 | **Slow network** | `ping -c 10 google.com` (check latency) |
 | **Port not accessible** | `telnet host port` or `nc -zv host port` |
 | **Unknown IP conflicts** | `arp -a` (check ARP table) |
-
----
-
-## 🎯 Project Structure
-
-```
-holbertonschool-network/
-├── 0-OSI_model/           # OSI Model exercises
-├── Notions.md             # Complete networking guide (FR)
-├── Pictures/              # Network diagrams and visuals
-└── README.md              # This file
-```
-
----
-
-## 🤝 Contributing
-
-Feel free to contribute to this project by:
-- Adding new networking exercises
-- Improving documentation
-- Fixing bugs in scripts
-- Adding more examples
-
----
-
-## 📝 Notes
-
-> 💡 **Remember:** Practice is key in networking! Use the commands regularly to build muscle memory.
-
-> 🔐 **Security Note:** Always be careful when using network tools on networks you don't own. Only test on your own infrastructure or with explicit permission.
 
 ---
 
