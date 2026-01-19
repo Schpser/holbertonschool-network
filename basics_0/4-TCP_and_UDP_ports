@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Displays listening ports: TCP, UDP, and UNIX domain sockets with PID/Program name
 
-sudo netstat -tunlp
+sudo netstat -nlp
