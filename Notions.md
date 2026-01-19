@@ -951,25 +951,65 @@ Bonjour, serveur
 
 ```
 ┌────────────────────────────────────────────────┐
-│   Data Flow                                    │
+│   Flux de Données                             │
 │                                                │
-│   Terminal 2 (Client)    Terminal 1 (Server)  │
-│   "Hello, server" ───────────────> 📨         │
+│   Terminal 2 (Client)   Terminal 1 (Serveur)  │
+│  "Bonjour, serveur" ─────────────> 📨         │
 │         📤                           📥        │
 └────────────────────────────────────────────────┘
 ```
 
-**Congratulations! 🎊** You have successfully established a client-server connection and sent data across a network socket. Even though it all happened on one machine, the underlying principles are the same as sending a message across the internet.
+**Félicitations ! 🎊** Vous avez réussi à établir une connexion client-serveur et à envoyer des données à travers un socket réseau. Même si tout s'est passé sur une seule machine, les principes sous-jacents sont les mêmes que pour l'envoi d'un message à travers Internet.
 
-Great! You've successfully sent a simple text message. Now, let's level up and send a whole file. 📁
+Parfait ! Vous avez réussi à envoyer un simple message texte. Maintenant, passons au niveau supérieur et envoyons un fichier entier. 📁
 
-## 🔬 3.0 Hands-On Lab 2: Transferring a File
+## 📁 3.0 Travaux Pratiques 2 : Transfert d'un Fichier
 
-Beyond simple text, netcat can also be used to transfer files.
+Au-delà du simple texte, netcat peut également être utilisé pour transférer des fichiers.
 
-### 📦 3.1. Preparing the "Package"
+```
+┌────────────────────────────────────────────────┐
+│   Vue d'Ensemble du Transfert de Fichier      │
+│                                                │
+│   testfile ──[pipe]──> nc ──[réseau]──> nc   │
+│      📄          |          📡          >📄    │
+│              [Client]              [Serveur]    │
+│                               received_file    │
+└────────────────────────────────────────────────┘
+```
 
-First, let's create a simple file to send. In either terminal, run the following command:
+### 📦 3.1. Préparer le "Paquet"
+
+Tout d'abord, créons un fichier simple à envoyer. Dans l'un des deux terminaux, exécutez la commande suivante :
+
+```bash
+echo "hello test" > testfile
+```
+
+Cette commande crée un nouveau fichier nommé `testfile` et y place le texte "hello test". 📝
+
+### 📥 3.2. Configurer le Serveur pour Recevoir le Fichier
+
+Avant de commencer, vous devrez peut-être arrêter le serveur précédent en allant sur le **Terminal 1** et en appuyant sur `Ctrl + C`.
+
+**Dans le Terminal 1 (Serveur) :**
+
+Maintenant, exécutez cette nouvelle commande serveur.
+
+```bash
+nc -l 2389 > received_file
+```
+
+La nouvelle partie ici est `> received_file`. Le symbole `>` est un **opérateur de redirection du shell**. Il indique au terminal de prendre toutes les données que la commande `nc` reçoit et, au lieu de les afficher à l'écran, de les écrire (ou rediriger) dans un nouveau fichier nommé `received_file`. 💾
+
+```
+┌────────────────────────────────────────────────┐
+│   Configuration Serveur avec Redirection      │
+│                                                │
+│   nc -l 2389  ──[redirect >]──>  received_file│
+│      👂                              💾        │
+└────────────────────────────────────────────────┘
+```
 ### 📤 3.3. Envoyer le Fichier depuis le Client
 
 **Dans le Terminal 2 (Client) :**
@@ -999,6 +1039,7 @@ Cette puissante commande en une ligne combine deux commandes. Voici comment ça 
 | **3** | `nc localhost 2389` | Comme avant, cela se connecte à notre serveur. Cette fois, au lieu d'attendre que vous tapiez, il envoie immédiatement les données qu'il a reçues du pipe | 📡 |
 
 > **💡 Astuce Pro :** Cette technique de 'piping' (tubes) est la pierre angulaire de l'interface en ligne de commande. En combinant de petits outils à usage unique (`cat` pour lire un fichier, `nc` pour gérer le réseau), vous pouvez créer des flux de travail puissants et flexibles sans avoir besoin de logiciels complexes. Vous venez de construire un utilitaire de transfert de fichiers en une seule ligne ! 🎯
+
 ### ✅ 3.4. Vérifier le Transfert
 
 Après avoir exécuté la commande client, la connexion se fermera automatiquement. La connexion se ferme car la commande `cat` termine la lecture du fichier et envoie un signal **'End-of-File' (EOF)** (fin de fichier). Le pipe relaie ce signal, `nc` envoie les dernières données, puis termine la connexion. C'est une manière propre et efficace de gérer les flux de données. 🔄
@@ -1031,6 +1072,47 @@ hello test
 │   testfile (Client)   received_file (Serveur)  │
 │   "hello test"    ✅    "hello test"           │
 │        📄                      📄              │
+│   Correspondance parfaite ! Transfert réussi !  │
+└────────────────────────────────────────────────┘
+```
+
+## 🎓 4.0 Conclusion : Vous Êtes un Communicateur Réseau !
+
+```
+┌────────────────────────────────────────────────┐
+│   🎉 Félicitations ! Vous avez maîtrisé :       │
+│                                                │
+│   ✅ Modèle Client-Serveur                     │
+│   ✅ Boucle Locale Localhost (127.0.0.1)       │
+│   ✅ Sockets Réseau & Ports                    │
+│   ✅ Transfert de Données avec netcat         │
+│   ✅ Piping en ligne de commande               │
+└────────────────────────────────────────────────┘
+```
+
+Dans ce court guide, vous êtes passé de la théorie à la pratique et avez appris certains des concepts les plus fondamentaux des réseaux. Vous avez maintenant une expérience pratique avec :
+
+| Concept | Ce que Vous avez Appris | Emoji |
+|---------|-------------------------|-------|
+| **Modèle Client-Serveur** | Vous avez vu comment un programme (le serveur) écoute et répond aux requêtes d'un autre (le client) | 🤝 |
+| **Boucle Locale Localhost** | Vous avez appris comment `127.0.0.1` fournit un réseau privé sur une seule machine, créant un bac à sable parfait pour les tests et le développement | 🏠 |
+| **Transfert de Données avec netcat** | Vous avez utilisé l'utilitaire `nc` pour envoyer à la fois des messages tapés et le contenu de fichiers entiers via un socket réseau | 📡 |
+
+```
+┌────────────────────────────────────────────────┐
+│   De localhost au World Wide Web              │
+│                                                │
+│   Votre Ordi  →  Réseau Local  →  Internet   │
+│      127.0.0.1       192.168.x.x      🌍      │
+│   Mêmes principes, échelles différentes !       │
+└────────────────────────────────────────────────┘
+```
+
+Vous venez de faire votre premier pas dans le monde de la programmation réseau. Les mêmes principes d'un client envoyant des données à un serveur en écoute sur un port spécifique sont ce qui alimente la navigation web 🌐, les jeux en ligne 🎮, et d'innombrables autres applications. En maîtrisant ces fondamentaux avec un outil simple comme netcat, vous avez construit une base solide pour comprendre les conversations complexes qui se produisent à travers Internet à chaque seconde. 🚀
+
+> **💡 Prochaines Étapes :** Essayez d'expérimenter avec différents numéros de port, d'envoyer des fichiers plus volumineux, ou même d'utiliser netcat pour transférer des données entre deux ordinateurs différents sur le même réseau !
+
+**Bon apprentissage des réseaux ! 🌐🚀**
 │   Correspondance parfaite ! Transfert réussi !  │
 └────────────────────────────────────────────────┘
 ```
