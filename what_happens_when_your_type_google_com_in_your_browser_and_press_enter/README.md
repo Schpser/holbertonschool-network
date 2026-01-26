@@ -323,13 +323,14 @@ This diagram illustrates how multiple HTTP requests are made in parallel to fetc
 ---
 
 ### Complete Process Diagram
-**See: `Pictures/DNS_Resolution (2).png` and `Pictures/Structure.png`**
+![DNS Resolution](https://github.com/Schpser/holbertonschool-network/blob/main/what_happens_when_your_type_google_com_in_your_browser_and_press_enter/Pictures/DNS_example.png)
 
 These comprehensive diagrams show:
 - The complete DNS resolution process
 - How requests flow through the infrastructure
 - The role of each component in handling your request
 
+![DNS Requests](https://github.com/Schpser/holbertonschool-network/blob/main/what_happens_when_your_type_google_com_in_your_browser_and_press_enter/Pictures/Requests.png)
 ---
 
 ## 🔑 Key Technologies Involved
