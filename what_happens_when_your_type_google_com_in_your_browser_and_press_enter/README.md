@@ -52,6 +52,8 @@ what_happens_when_your_type_google_com_in_your_browser_and_press_enter/
 ├── 1-what_happen_when_diagram.md  # Detailed diagrams and explanations
 ├── Pictures/
 │   ├── DNS_Resolution (2).png # DNS resolution process diagram
+│   ├── DNS_example.png        # Real-world DNS example
+│   ├── Requests.png           # HTTP requests flow diagram
 │   └── Structure.png          # Complete infrastructure structure
 └── Additional Resources/      # Supporting materials
 ```
@@ -89,7 +91,9 @@ Authoritative Nameserver (google.com)
 Returns: 142.251.41.14 (Google's IP)
 ```
 
-**Diagram Reference:** See `Pictures/DNS_Resolution (2).png`
+**Visual References:**
+- See `Pictures/DNS_Resolution (2).png` - Detailed DNS resolution process
+- See `Pictures/DNS_example.png` - Real-world DNS example
 
 ---
 
@@ -237,7 +241,7 @@ Your browser receives the response and begins rendering:
 
 ---
 
-### Step 8️⃣: Resource Fetching
+### Step 8️⃣: Resource Fetching & Multiple Requests
 
 While rendering, the browser fetches additional resources:
 
@@ -248,11 +252,25 @@ While rendering, the browser fetches additional resources:
 - 🎬 Videos
 - 📊 Data via APIs
 
+**Visual Reference:** See `Pictures/Requests.png` - HTTP requests flow diagram
+
 Each resource follows the same DNS → TCP → HTTP cycle, but browsers:
 - ✅ Use connection pooling (reuse connections)
 - ✅ Implement parallel downloads (up to 6-8 simultaneous)
 - ✅ Cache resources for future use
 - ✅ Defer non-critical resources
+- ✅ Prioritize critical rendering resources
+
+**Request optimization:**
+```
+Initial HTML Request
+    ├─→ CSS Files (blocking)
+    ├─→ JavaScript Files (async/defer)
+    ├─→ Images (parallel)
+    ├─→ Fonts (preload)
+    ├─→ Analytics Scripts (async)
+    └─→ Third-party Resources
+```
 
 ---
 
@@ -288,6 +306,32 @@ The complete infrastructure that enables your simple request:
 
 ---
 
+## 📸 Visual Guides
+
+### DNS Resolution Example
+**See: `Pictures/DNS_example.png`**
+
+This diagram shows a real-world example of how a DNS query travels through the DNS hierarchy to resolve a domain name to an IP address.
+
+---
+
+### HTTP Requests Flow
+**See: `Pictures/Requests.png`**
+
+This diagram illustrates how multiple HTTP requests are made in parallel to fetch all necessary resources (HTML, CSS, JS, images, etc.) to fully load a webpage.
+
+---
+
+### Complete Process Diagram
+**See: `Pictures/DNS_Resolution (2).png` and `Pictures/Structure.png`**
+
+These comprehensive diagrams show:
+- The complete DNS resolution process
+- How requests flow through the infrastructure
+- The role of each component in handling your request
+
+---
+
 ## 🔑 Key Technologies Involved
 
 ### DNS (Domain Name System)
@@ -295,29 +339,35 @@ The complete infrastructure that enables your simple request:
 - **Record Types**: A, AAAA, CNAME, MX, TXT
 - **Caching**: Multiple levels (browser, OS, ISP, resolver cache)
 - **TTL**: Time-To-Live determines cache duration
+- **Hierarchy**: Root → TLD → Authoritative nameservers
 
 ### TCP/IP Protocols
 - **TCP**: Reliable, ordered delivery of data
 - **IP**: Routing packets across networks
 - **3-Way Handshake**: Establishes connection reliability
+- **Flow Control**: Manages data transmission rate
+- **Error Detection**: Ensures data integrity
 
 ### HTTP/HTTPS
-- **HTTP**: Unencrypted web protocol
-- **HTTPS**: HTTP + TLS/SSL encryption
+- **HTTP**: Unencrypted web protocol (port 80)
+- **HTTPS**: HTTP + TLS/SSL encryption (port 443)
 - **HTTP/2**: Multiplexing and server push
 - **HTTP/3**: QUIC protocol for faster connections
+- **Status Codes**: 1xx, 2xx, 3xx, 4xx, 5xx
 
 ### TLS/SSL
 - **Purpose**: Encrypt data in transit
 - **Certificate**: Proves server identity
 - **Perfect Forward Secrecy**: Each session has unique keys
 - **Cipher Suites**: Algorithms for encryption
+- **Versions**: TLS 1.2, TLS 1.3 recommended
 
 ### Browser Cache
 - **Local Storage**: Cookies, session storage
 - **HTTP Cache**: Cached resources with expiration
 - **Service Workers**: Offline caching
 - **Memory Cache**: Temporary in-memory storage
+- **Cache Headers**: Control caching behavior
 
 ---
 
@@ -333,10 +383,20 @@ The complete infrastructure that enables your simple request:
 5. Server Processing:     ~100-500ms
 6. HTTP Response:         ~50-100ms
 7. Browser Rendering:     ~100-1000ms
+8. Resource Fetching:     ~200-2000ms (parallel)
 ────────────────────────────────────
 Total Time to First Paint: ~500-2500ms
 Total Time to Interactive: ~1000-5000ms
+Total Page Load:          ~2000-5000ms
 ```
+
+### Critical Performance Metrics:
+
+- **FCP** (First Contentful Paint): When first pixel is rendered
+- **LCP** (Largest Contentful Paint): When largest element is rendered
+- **FID** (First Input Delay): Response time to user interaction
+- **CLS** (Cumulative Layout Shift): Visual stability during load
+- **TTFB** (Time to First Byte): Server response time
 
 ### Optimization Strategies:
 
@@ -392,6 +452,14 @@ Total Time to Interactive: ~1000-5000ms
 - Implement critical CSS
 - Optimize images
 
+### Too Many Requests
+**Problem**: Page load is slow due to many HTTP requests
+**Solution**:
+- Bundle resources
+- Use CSS sprites
+- Implement lazy loading
+- Optimize request waterfall (see `Pictures/Requests.png`)
+
 ---
 
 ## 📚 Resources
@@ -404,6 +472,8 @@ Total Time to Interactive: ~1000-5000ms
 - [TCP/IP Protocols](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13769-5.html)
 - [Web Performance Optimization](https://web.dev/performance/)
 - [System Design Primer](https://github.com/donnemartin/system-design-primer)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [Browser Rendering Pipeline](https://developers.google.com/web/fundamentals/performance/critical-rendering-path)
 
 ---
 
@@ -419,6 +489,9 @@ Total Time to Interactive: ~1000-5000ms
 - 🧪 Test under various network conditions
 - 🔐 Validate SSL certificates properly
 - 📈 Plan for scalability and traffic growth
+- 📉 Reduce HTTP requests through bundling
+- ⏱️ Prioritize critical resources
+- 🔍 Use browser DevTools for performance analysis
 
 ---
 
@@ -435,6 +508,7 @@ This project connects with:
 - **System Engineering**: Building reliable distributed systems
 - **DevOps**: Deploying and maintaining web services
 - **Security**: Protecting data in transit and at rest
+- **Performance Engineering**: Optimizing for speed and efficiency
 
 ---
 
@@ -446,8 +520,21 @@ This project connects with:
 ✅ TLS/SSL provides encryption and authentication  
 ✅ Browsers optimize by caching, parallelizing, and progressively rendering  
 ✅ Server infrastructure uses load balancing and caching for scalability  
+✅ Multiple HTTP requests are fetched in parallel for efficiency  
 ✅ Every millisecond matters—optimization is crucial  
 ✅ Multiple layers of caching improve performance significantly  
+✅ Understanding this process is essential for web development and DevOps  
+
+---
+
+## 📸 Diagram Quick Reference
+
+| Diagram | Purpose | Location |
+|---------|---------|----------|
+| DNS Resolution | Shows DNS query process | `Pictures/DNS_Resolution (2).png` |
+| DNS Example | Real-world DNS resolution | `Pictures/DNS_example.png` |
+| Requests Flow | HTTP requests for resources | `Pictures/Requests.png` |
+| Infrastructure Structure | Complete system architecture | `Pictures/Structure.png` |
 
 ---
 
